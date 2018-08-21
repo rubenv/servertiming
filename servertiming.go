@@ -2,7 +2,9 @@
 // (https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server-Timing) to
 // your application.
 //
-// Usage:
+// Usage
+//
+// A Timing object can be used to gather metrics and format them into the correct format:
 //
 //     // Create a new instance:
 //
