@@ -8,6 +8,10 @@
 //
 //         t := servertiming.New()
 //
+//     // Optionally enable name prefixing to preserve the order of metrics (will adjust names though!)
+//
+//         t.EnablePrefix()
+//
 //     // Add a few metrics, either by manually specifying the duration:
 //
 //         t.Add("cache", "Cache Read", 23200*time.Microsecond)
