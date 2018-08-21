@@ -4,7 +4,7 @@
 //
 // Usage:
 //
-//     Create a new instance:
+//     // Create a new instance:
 //
 //         t := servertiming.New()
 //
@@ -22,6 +22,7 @@
 //
 //         w.Header().Set("Server-Timing", ti.String())
 //
+// Note: timings can be sent as a trailer when using HTTP2, see the example in net/http: https://godoc.org/net/http#example-ResponseWriter--Trailers
 package servertiming
 
 import (
@@ -31,6 +32,7 @@ import (
 	"time"
 )
 
+// Timing holds timing metrics
 type Timing struct {
 	itemLock sync.Mutex
 	items    []*item
@@ -43,10 +45,12 @@ type item struct {
 	Started     time.Time
 }
 
+// Creates a new Timing object
 func New() *Timing {
 	return &Timing{}
 }
 
+// Formats a valid Server-Timing header value, as defined in https://w3c.github.io/server-timing/#the-server-timing-header-field
 func (t *Timing) String() string {
 	t.itemLock.Lock()
 	defer t.itemLock.Unlock()
@@ -80,16 +84,19 @@ func (t *Timing) add(name, description string) *item {
 	return i
 }
 
+// Add a new timing, with the duration specified
 func (t *Timing) Add(name, description string, duration time.Duration) {
 	i := t.add(name, description)
 	i.Duration = duration
 }
 
+// Start a timer
 func (t *Timing) Start(name, description string) {
 	i := t.add(name, description)
 	i.Started = time.Now()
 }
 
+// Stop a timer
 func (t *Timing) Stop(name string) {
 	t.itemLock.Lock()
 	defer t.itemLock.Unlock()
@@ -101,6 +108,7 @@ func (t *Timing) Stop(name string) {
 	}
 }
 
+// Add a flag without value
 func (t *Timing) AddFlag(name, description string) {
 	t.add(name, description)
 }
