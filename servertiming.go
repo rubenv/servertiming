@@ -55,8 +55,9 @@ func New() *Timing {
 }
 
 // Add a numerical prefix to each metric, to preserve ordering when sorted in dev tools.
-func (t *Timing) EnablePrefix() {
+func (t *Timing) EnablePrefix() *Timing {
 	t.prefix = true
+	return t
 }
 
 // Formats a valid Server-Timing header value, as defined in https://w3c.github.io/server-timing/#the-server-timing-header-field
