@@ -4,6 +4,8 @@
 
 [![Build Status](https://travis-ci.org/rubenv/servertiming.svg?branch=master)](https://travis-ci.org/rubenv/servertiming) [![GoDoc](https://godoc.org/github.com/rubenv/servertiming?status.png)](https://godoc.org/github.com/rubenv/servertiming)
 
+![Timings in Chrome Dev Tools](devtools.png)
+
 ## Usage
 
 ```go
