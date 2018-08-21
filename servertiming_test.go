@@ -49,3 +49,33 @@ func TestString(t *testing.T) {
 	is.NoErr(err)
 	is.True(d > 10)
 }
+
+func TestPrefix(t *testing.T) {
+	is := is.New(t)
+
+	ti := New()
+	ti.EnablePrefix()
+
+	ti.AddFlag("a", "A")
+	ti.AddFlag("b", "B")
+	ti.AddFlag("c", "C")
+	ti.AddFlag("d", "D")
+
+	is.Equal(ti.String(), `a;desc="1: A", b;desc="2: B", c;desc="3: C", d;desc="4: D"`)
+
+	ti = New()
+	ti.EnablePrefix()
+
+	ti.AddFlag("a", "A")
+	ti.AddFlag("b", "B")
+	ti.AddFlag("c", "C")
+	ti.AddFlag("d", "D")
+	ti.AddFlag("e", "E")
+	ti.AddFlag("f", "F")
+	ti.AddFlag("g", "G")
+	ti.AddFlag("h", "H")
+	ti.AddFlag("i", "I")
+	ti.AddFlag("j", "J")
+
+	is.Equal(ti.String(), `a;desc="01: A", b;desc="02: B", c;desc="03: C", d;desc="04: D", e;desc="05: E", f;desc="06: F", g;desc="07: G", h;desc="08: H", i;desc="09: I", j;desc="10: J"`)
+}

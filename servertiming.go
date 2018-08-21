@@ -27,15 +27,19 @@ package servertiming
 
 import (
 	"fmt"
+	"math"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/kr/pretty"
 )
 
 // Timing holds timing metrics
 type Timing struct {
 	itemLock sync.Mutex
 	items    []*item
+	prefix   bool
 }
 
 type item struct {
@@ -50,16 +54,28 @@ func New() *Timing {
 	return &Timing{}
 }
 
+// Add a numerical prefix to each metric, to preserve ordering when sorted in dev tools.
+func (t *Timing) EnablePrefix() {
+	t.prefix = true
+}
+
 // Formats a valid Server-Timing header value, as defined in https://w3c.github.io/server-timing/#the-server-timing-header-field
 func (t *Timing) String() string {
 	t.itemLock.Lock()
 	defer t.itemLock.Unlock()
 
+	pos := int(math.Ceil(math.Log10(float64(len(t.items) + 1))))
+	prefixFmt := fmt.Sprintf("%%0%dd: %%s", pos)
+	pretty.Log(prefixFmt)
 	parts := make([]string, 0)
-	for _, item := range t.items {
+	for idx, item := range t.items {
 		subParts := []string{item.Name}
-		if item.Description != "" {
-			subParts = append(subParts, fmt.Sprintf("desc=%#v", item.Description))
+		if item.Description != "" || t.prefix {
+			desc := item.Description
+			if t.prefix {
+				desc = fmt.Sprintf(prefixFmt, idx+1, item.Description)
+			}
+			subParts = append(subParts, fmt.Sprintf("desc=%#v", desc))
 		}
 		if item.Duration != 0 {
 			subParts = append(subParts, fmt.Sprintf("dur=%.2f", item.Duration.Seconds()*1000))
