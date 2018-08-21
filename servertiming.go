@@ -4,32 +4,34 @@
 //
 // Usage
 //
-// A Timing object can be used to gather metrics and format them into the correct format:
+// A Timing object can be used to gather metrics and format them into the correct format.
 //
-//     // Create a new instance:
+// Create a new instance:
 //
-//         t := servertiming.New()
+//     t := servertiming.New()
 //
-//     // Optionally enable name prefixing to preserve the order of
-//     // metrics (will adjust names though!)
+// Optionally enable name prefixing to preserve the order of
+// metrics (will adjust names though!)
 //
-//         t.EnablePrefix()
+//     t.EnablePrefix()
 //
-//     // Add a few metrics, either by manually specifying the duration:
+// Add a few metrics, either by manually specifying the duration:
 //
-//         t.Add("cache", "Cache Read", 23200*time.Microsecond)
+//     t.Add("cache", "Cache Read", 23200*time.Microsecond)
 //
-//     // Or by using the start-stop API:
+// Or by using the start-stop API:
 //
-//         ti.Start("db", "Database query")
-//         // query db
-//         ti.Stop("db")
+//     ti.Start("db", "Database query")
+//     // query db
+//     ti.Stop("db")
 //
-//     // Then send it with your response:
+// Then send it with your response:
 //
-//         w.Header().Set("Server-Timing", ti.String())
+//     w.Header().Set("Server-Timing", ti.String())
 //
-// Note: timings can be sent as a trailer when using HTTP2, see the example in net/http: https://godoc.org/net/http#example-ResponseWriter--Trailers
+// HTTP2 Trailers
+//
+// Timings can be sent as a trailer when using HTTP2, see the example in net/http: https://godoc.org/net/http#example-ResponseWriter--Trailers
 package servertiming
 
 import (
