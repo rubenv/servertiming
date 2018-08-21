@@ -1,3 +1,8 @@
+// Simple library for adding Server-Timing headers
+// (https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server-Timing) to
+// your application.
+//
+//
 package servertiming
 
 import (

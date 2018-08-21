@@ -26,6 +26,8 @@
     w.Header().Set("Server-Timing", ti.String())
 ```
 
+Note: timings can be sent as a trailer when using HTTP2, see the example in `net/http`: [Example (Trailers)](https://godoc.org/net/http#example-ResponseWriter--Trailers).
+
 ## License
 
 This library is distributed under the [MIT](LICENSE) license.
