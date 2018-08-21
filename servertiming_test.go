@@ -61,7 +61,7 @@ func TestPrefix(t *testing.T) {
 	ti.AddFlag("c", "C")
 	ti.AddFlag("d", "D")
 
-	is.Equal(ti.String(), `a;desc="1: A", b;desc="2: B", c;desc="3: C", d;desc="4: D"`)
+	is.Equal(ti.String(), `0_a;desc="A", 1_b;desc="B", 2_c;desc="C", 3_d;desc="D"`)
 
 	ti = New()
 	ti.EnablePrefix()
@@ -77,5 +77,5 @@ func TestPrefix(t *testing.T) {
 	ti.AddFlag("i", "I")
 	ti.AddFlag("j", "J")
 
-	is.Equal(ti.String(), `a;desc="01: A", b;desc="02: B", c;desc="03: C", d;desc="04: D", e;desc="05: E", f;desc="06: F", g;desc="07: G", h;desc="08: H", i;desc="09: I", j;desc="10: J"`)
+	is.Equal(ti.String(), `00_a;desc="A", 01_b;desc="B", 02_c;desc="C", 03_d;desc="D", 04_e;desc="E", 05_f;desc="F", 06_g;desc="G", 07_h;desc="H", 08_i;desc="I", 09_j;desc="J"`)
 }

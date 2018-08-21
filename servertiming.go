@@ -31,8 +31,6 @@ import (
 	"strings"
 	"sync"
 	"time"
-
-	"github.com/kr/pretty"
 )
 
 // Timing holds timing metrics
@@ -66,16 +64,17 @@ func (t *Timing) String() string {
 	defer t.itemLock.Unlock()
 
 	pos := int(math.Ceil(math.Log10(float64(len(t.items) + 1))))
-	prefixFmt := fmt.Sprintf("%%0%dd: %%s", pos)
-	pretty.Log(prefixFmt)
+	nameFmt := fmt.Sprintf("%%0%dd_%%s", pos)
 	parts := make([]string, 0)
 	for idx, item := range t.items {
-		subParts := []string{item.Name}
-		if item.Description != "" || t.prefix {
+		subParts := []string{}
+		if t.prefix {
+			subParts = append(subParts, fmt.Sprintf(nameFmt, idx, item.Name))
+		} else {
+			subParts = append(subParts, item.Name)
+		}
+		if item.Description != "" {
 			desc := item.Description
-			if t.prefix {
-				desc = fmt.Sprintf(prefixFmt, idx+1, item.Description)
-			}
 			subParts = append(subParts, fmt.Sprintf("desc=%#v", desc))
 		}
 		if item.Duration != 0 {
