@@ -2,6 +2,25 @@
 // (https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server-Timing) to
 // your application.
 //
+// Usage:
+//
+//     Create a new instance:
+//
+//         t := servertiming.New()
+//
+//     // Add a few metrics, either by manually specifying the duration:
+//
+//         t.Add("cache", "Cache Read", 23200*time.Microsecond)
+//
+//     // Or by using the start-stop API:
+//
+//         ti.Start("db", "Database query")
+//         // query db
+//         ti.Stop("db")
+//
+//     // Then send it with your response:
+//
+//         w.Header().Set("Server-Timing", ti.String())
 //
 package servertiming
 
