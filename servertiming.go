@@ -63,7 +63,7 @@ func (t *Timing) String() string {
 	t.itemLock.Lock()
 	defer t.itemLock.Unlock()
 
-	pos := int(math.Ceil(math.Log10(float64(len(t.items) + 1))))
+	pos := int(math.Ceil(math.Log10(float64(len(t.items)))))
 	nameFmt := fmt.Sprintf("%%0%dd_%%s", pos)
 	parts := make([]string, 0)
 	for idx, item := range t.items {
