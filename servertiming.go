@@ -8,7 +8,8 @@
 //
 //         t := servertiming.New()
 //
-//     // Optionally enable name prefixing to preserve the order of metrics (will adjust names though!)
+//     // Optionally enable name prefixing to preserve the order of
+//     // metrics (will adjust names though!)
 //
 //         t.EnablePrefix()
 //
