@@ -83,8 +83,7 @@ func (t *Timing) String() string {
 			subParts = append(subParts, item.Name)
 		}
 		if item.Description != "" {
-			desc := item.Description
-			subParts = append(subParts, fmt.Sprintf("desc=%#v", desc))
+			subParts = append(subParts, fmt.Sprintf("desc=%#v", item.Description))
 		}
 		if item.Duration != 0 {
 			subParts = append(subParts, fmt.Sprintf("dur=%.2f", item.Duration.Seconds()*1000))
